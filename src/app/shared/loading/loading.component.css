@@ -1,0 +1,18 @@
+.spinner-border {
+
+    display: inline-block;
+    position: absolute;
+    top: calc(50% - 2rem);
+    right: calc(50% - 2rem);
+    width: 4rem;
+    height: 4rem;
+}
+
+.backdrop{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(128, 128, 128, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+}

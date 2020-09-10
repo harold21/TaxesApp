@@ -1,0 +1,254 @@
+<ngb-alert *ngIf="notifyMessage" type="warning" (close)="showMessage = null">{{ notifyMessage }}</ngb-alert>
+<form>
+
+  <br />
+
+  <div class="row">
+    <div class="col-2">
+      <label>Pais Campañia</label>
+    </div>
+    <div class="col-2">
+      <select
+        class="form-control"
+        (change)="this.parameter.idPaisCompania = $event.target.value"
+      >
+        <option
+          [selected]="this.parameter.idPaisCompania == f.idPais"
+          *ngFor="let f of this.countries"
+        >
+          {{ f.idPais }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-2">
+      <label>Pais Cliente</label>
+    </div>
+    <div class="col-2">
+      <select
+        class="form-control"
+        (change)="this.parameter.idPaisCliente = $event.target.value"
+      >
+        <option
+          [selected]="this.parameter.idPaisCliente == f.idPais"
+          *ngFor="let f of this.countries"
+          >{{ f.idPais }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-2">
+      <label>Pais Agencia</label>
+    </div>
+    <div class="col-2">
+      <select
+        class="form-control"
+        (change)="this.parameter.idPaisAgencia = $event.target.value"
+      >
+        <option
+          [selected]="this.parameter.idPaisAgencia == f.idPais"
+          *ngFor="let f of this.countries"
+          >{{ f.idPais }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-2">
+      <label>Pais Producto</label>
+    </div>
+    <div class="col-2">
+      <select
+        class="form-control"
+        (change)="this.parameter.idPaisProducto = $event.target.value"
+      >
+        <option
+          [selected]="this.parameter.idPaisProducto == f.idPais"
+          *ngFor="let f of this.countries"
+          >{{ f.idPais }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-2">
+      <label>Pais Proveedor</label>
+    </div>
+    <div class="col-2">
+      <select
+        class="form-control"
+        (change)="this.parameter.idPaisProveedor = $event.target.value"
+      >
+        <option
+          [selected]="this.parameter.idPaisProveedor == f.idPais"
+          *ngFor="let f of this.countries"
+          >{{ f.idPais }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-2">
+      <label>Tipo de Servicio</label>
+    </div>
+    <div class="col-2">
+      <ng-select
+        name="typeService"
+        [items]="this.typeService"
+        bindLabel="descripcion"
+        bindValue="idTipoServicio"
+        [clearable]="false"
+        (change)="setTypeService($event)"
+        [(ngModel)]="this.selectedTypeService.idTipoServicio"
+      ></ng-select>
+    </div>
+  </div>
+  <br />
+</form>
+
+<div class="row">
+  <hr
+    style="width: 100%; background-color: black; height: 1px; border-color : transparent;"
+  />
+</div>
+<form>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-2">
+          <label>Afecta</label>
+        </div>
+        <div class="col-6">
+          <ng-select
+            name="affects"
+            [items]="this.affects"
+            bindLabel="nombre"
+            bindValue="idAfecta"
+            [clearable]="false"
+            (change)="setAffect($event)"
+            [(ngModel)]="this.selectedAffect.idAfecta"
+          ></ng-select>
+        </div>
+        <div class="col-4"></div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-2">
+          <label>Impuestos</label>
+        </div>
+        <div class="col-6">
+          <ng-select
+            (change)="setTax($event)"
+            [items]="this.taxes"
+            bindLabel="nombre"
+            bindValue="idImpuesto"
+            [clearable]="false"
+            name="impuesto"
+            #selectDropdown
+          >
+          </ng-select>
+          <div class="alert alert-danger" *ngIf='this.taxeIsEmpty' >
+            Campo requerido.
+        </div>
+        </div>
+        <div class="col-4"></div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-2">
+          <label>Valor</label>
+        </div>
+        <div class="col-6">
+          <input
+            name="valor"
+            class="form-control"
+            [(ngModel)]="this.parameterTax.impuesto.valor"
+            type="number"
+          />
+        </div>
+        <div class="col-4"></div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-2">
+          <label>Exento</label>
+        </div>
+        <div class="col-4">
+          <input
+            name="Exento"
+            type="checkbox"
+            [(ngModel)]="this.parameterTax.exento"
+            class="form-check-input"
+          />
+        </div>
+        <div class="col-4">
+          <button
+            (click)="selectDropdown.handleClearClick()"
+            (click)="addParameterTaxes()"
+          >
+            Agregar
+          </button>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-4 ">
+
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="this.dtTrigger"
+        class="table"
+        id="table"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Afecta</th>
+            <th scope="col">Impuesto</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Exento</th>
+            <th scope="col">Accion</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="col-5"></div>
+  </div>
+  <div class="row">
+    <hr
+      style="width: 100%; background-color: black; height: 0px; border-color : transparent;"
+    />
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-5">
+      <div class="row">
+        <div class="col-2">
+          <button (click)="addParameter()">Guardar</button>
+        </div>
+        <div class="col-2">
+          <button [disabled]="!editable" (click)="disable()">Desactivar</button>
+        </div>
+        <div style="margin-left: 10px" class="col-2">
+          <button routerLink="/parameters">Cancelar</button>
+        </div>
+        <div class="col-7"></div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</form>

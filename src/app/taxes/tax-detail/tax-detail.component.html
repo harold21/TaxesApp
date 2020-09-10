@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="text-dark rounded">
+        <h1 class="font-weight-bold">IMPUESTO</h1>
+    </div>
+
+    <div class="col-sm-3"></div>
+
+    <div class="col-sm-6">
+        <form #f="ngForm" (ngSubmit)="save(f.value)">
+            <ngb-alert *ngIf="notifyMessage" type="danger" (close)="showMessage = null">{{ notifyMessage }}</ngb-alert>
+            <div class="form-group">
+                <label for="taxName">Nombre Impuesto(*)</label>
+                <input #name="ngModel" [(ngModel)]="tax.nombre" name="nombre" id="taxName"  type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                    Campo requerido.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country">Pais(*)</label>
+                <select #country="ngModel" [(ngModel)]="tax.idPais" name="idPais" id="country" class="form-control" required>
+                    <option value=""></option>
+                    <option *ngFor="let c of countries$" [value]="c.idPais">{{ c.nombrePais }}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="country.touched && country.invalid">
+                    <div *ngIf="country.errors.required">Campo requerido.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type">Tipo(*)</label>
+                <select #type="ngModel" [(ngModel)]="tax.tipo" name="tipo" id="type" class="form-control" required>
+                    <option value=""></option>
+                    <option value="P">P</option>
+                    <option value="V">V</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="type.touched && type.invalid">
+                    Campo requerido.
+                </div>
+            </div>
+            <div class="form-check">
+                <input [(ngModel)]="tax.aplicaXNoche" name="aplicaXNoche" id="applyPerNight" type="checkbox" class="form-check-input">
+                <label for="applyPerNight">Aplica por noche</label>
+            </div>
+            <div class="form-group">
+                <label for="value">Valor(*)</label>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                    <input #value="ngModel" [(ngModel)]="tax.valor" name="valor" id="value"  type="number" class="form-control" required>
+                </div>
+                <div class="alert alert-danger" *ngIf="value.touched && value.invalid">
+                    <div *ngIf="value.errors.required">Campo requerido.</div>
+                </div>
+            </div>
+            <div class="form-check">
+                <input [(ngModel)]="tax.seDiscrimina" name="seDiscrimina" id="discriminate" type="checkbox" class="form-check-input">
+                <label for="discriminate">Se discrimina</label>
+            </div>
+            <div class="form-check">
+                <input [(ngModel)]="tax.gravaLocalEnTerritorioInterno" name="gravaLocalEnTerritorioInterno" id="localTaxOnInternationalTransaction" type="checkbox" class="form-check-input">
+                <label for="localTaxOnInternationalTransaction">Gravar local en transacción internacional</label>
+            </div>
+            <div class="form-group">
+                <label for="idSap">ID SAP</label>
+                <input [(ngModel)]="tax.idSAP" name="idSAP" id="idSap"  type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="idSapCompra">ID SAP Compra</label>
+                <input [(ngModel)]="tax.idSAPCompra" name="idSAPCompra" id="idSapCompra"  type="text" class="form-control">
+            </div>
+            <div>
+                <button class="btn btn-primary">Guardar</button>
+                <button (click)="cancel()" class="btn btn-danger">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-3"></div>
+</div>

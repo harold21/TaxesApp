@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-2">
+    <form>
+      <div class="form-group">
+        <label>Pais Campañia</label>
+
+        <select
+          (change)="this.parameterFilters.companyCountry = $event.target.value"
+          class="form-control"
+        >
+          <option
+            [selected]="this.parameterFilters.companyCountry == f.idPais"
+            *ngFor="let f of this.countries"
+            >{{ f.idPais }}</option
+          >
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pais Cliente</label>
+
+        <select
+          (change)="this.parameterFilters.clientCountry = $event.target.value"
+          class="form-control"
+        >
+          <option
+            [selected]="this.parameterFilters.clientCountry == f.idPais"
+            *ngFor="let f of this.countries"
+            >{{ f.idPais }}</option
+          >
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pais Agencia</label>
+        <select
+          (change)="this.parameterFilters.agencyCountry = $event.target.value"
+          class="form-control"
+        >
+          <option
+            [selected]="this.parameterFilters.agencyCountry == f.idPais"
+            *ngFor="let f of this.countries"
+            >{{ f.idPais }}</option
+          >
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pais Producto</label>
+
+        <select
+          (change)="this.parameterFilters.productCountry = $event.target.value"
+          class="form-control"
+        >
+          <option
+            [selected]="this.parameterFilters.productCountry == f.idPais"
+            *ngFor="let f of this.countries"
+            >{{ f.idPais }}</option
+          >
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Pais Proveedor</label>
+
+        <select
+          (change)="this.parameterFilters.providerCountry = $event.target.value"
+          class="form-control"
+        >
+          <option
+            [selected]="this.parameterFilters.providerCountry == f.idPais"
+            *ngFor="let f of this.countries"
+            >{{ f.idPais }}</option
+          >
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <input
+            type="submit"
+            (click)="reloadTable()"
+            class="btn_primary_default"
+            value="Buscar"
+          />
+        </div>
+        <div class="col-6">
+          <input
+            type="submit"
+            (click)="cleanFilters()"
+            class="btn_primary_default"
+            value="Limpiar"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-10" >
+    <ngb-alert *ngIf="notifyMessage" type="warning" (close)="showMessage = null">{{ notifyMessage }}</ngb-alert>
+      <table datatable [dtOptions]="dtOptions" class="table" id="table">
+        <thead>
+          <tr>
+          <th scope="col">ID Parametro</th>
+          <th scope="col">Pais Compañía</th>
+          <th scope="col">Pais Cliente</th>
+          <th scope="col">Pais Agencia</th>
+          <th scope="col">Pais de producto</th>
+          <th scope="col">Pais Proveedor</th>
+          <th scope="col">Tipo Servicio</th>
+          <th scope="col">Nro Impuestos</th>
+          <th scope="col">Fecha Modificacion</th>
+          <th scope="col">Fecha de Alta</th>
+          <th scope="col">Configurar</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+  </div>
+</div>
+<div class="trans text-center">
+    <button  (click)="saveLocalStorage()" routerLink="/parameter-detail" > Agregar
+    </button>
+</div>

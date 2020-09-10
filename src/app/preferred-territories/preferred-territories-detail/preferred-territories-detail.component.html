@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="text-dark rounded">
+        <h1 class="font-weight-bold">DETALLE TERRITORIO</h1>
+    </div>
+    <div class="col-sm-3"></div>
+
+    <div class="col-sm-6">
+        <form #f="ngForm" (ngSubmit)="save(f.value)">
+            <ngb-alert *ngIf="notifyMessage" type="danger" (close)="showMessage = null">{{ notifyMessage }}</ngb-alert>
+            <div class="form-group">
+                <label for="taxName">Nombre Territorio(*)</label>
+                <input #name="ngModel" [(ngModel)]="territory.idPaisTerritorioPreferente" name="idPaisTerritorioPreferente" id="idPaisTerritorioPreferente"  type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                    Campo requerido.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country">Pais(*)</label>
+                <select #country [(ngModel)]="territory.idPais" (change)="onChangeCountry(country.value)" name="idPais" id="country" class="form-control" required>
+                    <option value=""></option>
+                    <option *ngFor="let c of countries$" [value]="c.idPais">{{ c.nombrePais }}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="country.touched && country.invalid">
+                    Campo requerido.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="affect">Afecta(*)</label>
+                <select #affect [(ngModel)]="territory.afecta" name="afecta" id="afecta" class="form-control" required>
+                    <option value=""></option>
+                    <option *ngFor="let a of afecta$" [value]="a.idAfecta">{{ a.nombre }}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="affect.touched && affect.invalid">
+                    Campo requerido.
+                </div>
+            </div>
+            <div class="from-group">
+                <label for="destinations">Destinos</label>
+                <ng-select
+                    name="idTerritorioPreferenteDestino"
+                    [(ngModel)]="this.selectedDestinations"
+                    [items]="this.destinations$"
+                    [multiple]="true"
+                    bindLabel="nombreDestino"
+                    bindValue="idDestino"
+                >
+                </ng-select>
+            </div>
+            <div class="from-group">
+                <label for="cities">Ciudades</label>
+                <ng-select
+                    name="idTerritorioPreferenteCiudad"
+                    [(ngModel)]="this.selectedCities"
+                    [items]="this.cities$"
+                    [multiple]="true"
+                    bindLabel="nombreCiudad"
+                    bindValue="idCiudad"
+                >
+                </ng-select>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-primary">Guardar</button>
+                <button (click)="cancel()" class="btn btn-danger">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-3"></div>
+</div>

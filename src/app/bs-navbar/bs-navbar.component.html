@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" routerLink="/">Imperator</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a *ngIf="this.adalService.userInfo" class="nav-link" routerLink="/taxes">Impuestos</a>
+            </li>
+            <li class="nav-item">
+                <a *ngIf="this.adalService.userInfo" class="nav-link" routerLink="/parameters">Parametros</a>
+            </li>
+            <li class="nav-item">
+                <a *ngIf="this.adalService.userInfo" class="nav-link" routerLink="/preferred-territories">Territorios</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-text">
+        <label style="margin-right: 10px;">{{this.userName$}}</label>
+        <button *ngIf="!this.adalService.userInfo" (click)="logIn()" class="btn btn-primary"> Ingresar </button>
+        <button *ngIf="this.adalService.userInfo" (click)="logOut()" class="btn btn-danger"> Salir </button>
+    </div>
+</nav>
